@@ -184,7 +184,7 @@
       // CurseForge API
 
       class CurseForge {
-        endpoint = `https://curseforge.iky.su`;
+        endpoint = `https://cfp.iky.su`;
         request = async (url) => {
           const call = await fetch(`${this.endpoint}/${url}`, {
             headers: { "x-api-key": localStorage.getItem("cfkey") },
