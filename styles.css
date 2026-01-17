@@ -1,0 +1,149 @@
+body {
+  background: #121212;
+  color: rgb(255 255 255/87%);
+  font-family: Roboto, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  height: 100vh;
+}
+
+main {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  max-width: 832px;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+  letter-spacing: 0;
+}
+
+h2,
+h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+select {
+  color: rgba(255, 255, 255, 0.644);
+  background-color: #121212;
+  border: 1px solid rgb(66, 66, 66);
+  padding: 0.5em;
+  font-size: 1rem;
+  box-sizing: border-box;
+  width: 10em;
+}
+
+input {
+  color: rgba(255, 255, 255, 0.644);
+  background-color: #121212;
+  border: 1px solid rgb(66, 66, 66);
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+}
+
+input:disabled {
+  color: rgba(255, 255, 255, 0.192);
+  cursor: not-allowed;
+}
+
+a {
+  color: #90caf9;
+  text-decoration: none;
+}
+
+.error-text {
+  color: #cf6679;
+}
+
+.warn-text {
+  color: #cfcd66;
+}
+
+#search-line {
+  display: flex;
+}
+#search-line > input {
+  width: auto;
+  flex: auto;
+}
+
+#search-result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.5em 0;
+}
+
+.modpack {
+  background-color: #292929;
+  display: flex;
+  cursor: pointer;
+}
+
+.modpack > img {
+  height: 64px;
+  width: 64px;
+}
+
+.modpack-info {
+  padding: 0.2em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.modpack-info > p {
+  line-height: 0;
+}
+
+.modpack-selected {
+  background-color: green;
+}
+
+button {
+  color: #000;
+  background-color: #95c4ff;
+  font-size: 0.9em;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  border-radius: 20px;
+  border: 0;
+  height: 40px;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #89b4ea;
+}
+
+button:focus {
+  background-color: #7ca3d4;
+}
+
+button:disabled {
+  background-color: rgb(227 226 230/12%);
+  color: rgb(227 226 230/38%);
+  cursor: not-allowed;
+}
+
+#build-result {
+  max-height: 10em;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
