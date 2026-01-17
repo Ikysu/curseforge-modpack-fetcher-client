@@ -50,7 +50,7 @@ const renderUI = async () => {
     if (cfkeyElement.value?.length === 60) {
       localStorage.setItem("cfkey", cfkeyElement.value);
       try {
-        await window.renderMCVersionsAndLoaders();
+        await renderMCVersionsAndLoaders();
         cfkeyElement.style.borderColor = "green";
         enableAfterStage(1);
       } catch (error) {
