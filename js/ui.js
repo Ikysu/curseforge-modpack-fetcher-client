@@ -67,16 +67,14 @@ const renderUI = async () => {
     localStorage.setItem("cf-cookie", cookieElement.value);
   cookieElement.addEventListener("input", updateCookie);
 
-  await tokenCheck();
-
   // Stage: Find Minecraft modpack
   const searchElement = document.getElementById("search-input");
   const searchResultElement = document.getElementById("search-result");
   const searchVersionElement = document.getElementById("search-version");
   const searchLoaderElement = document.getElementById("search-loader");
 
-  window.renderMCVersionsAndLoaders = async () => {
-    const { versions, loaders, classIds } = await CF2.versionsAndLoaders();
+  const renderMCVersionsAndLoaders = async () => {
+    const { versions, loaders, classIds } = await CF.versionsAndLoaders();
     window.mcVersions = versions;
     window.mcLoaders = loaders;
     window.mcClassIds = classIds;
@@ -110,7 +108,7 @@ const renderUI = async () => {
 
     let modpacks;
     try {
-      const result = await CF2.searchModpack({
+      const result = await CF.searchModpack({
         query: searchElement.value,
         version: searchVersionElement.value,
         modLoader: searchLoaderElement.value,
@@ -177,6 +175,8 @@ const renderUI = async () => {
       },
     }),
   );
+
+  await tokenCheck();
 };
 
 window.addEventListener("DOMContentLoaded", renderUI);

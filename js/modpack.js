@@ -5,7 +5,7 @@ const downloadMod = async ({ modId, fileId, log, alt = false }) => {
   if (!fileResponse) {
     try {
       logWithPrefix(`Downloading`);
-      fileResponse = await CF2[alt ? "downloadAlt" : "download"]({
+      fileResponse = await CF[alt ? "downloadAlt" : "download"]({
         modId,
         fileId,
       });
