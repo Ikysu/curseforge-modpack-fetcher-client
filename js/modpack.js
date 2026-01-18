@@ -1,17 +1,29 @@
-const downloadMod = async ({ modId, fileId, log, alt = false }) => {
+const downloadMod = async ({ modId, fileId, log }) => {
   const logWithPrefix = (text) => log(`[Mod: ${modId}/${fileId}] ${text}`);
   const fileCacheName = `mod-${modId}-${fileId}`;
   let fileResponse = await window.ModCache.match(fileCacheName);
   if (!fileResponse) {
     try {
       logWithPrefix(`Downloading`);
-      fileResponse = await CF[alt ? "downloadAlt" : "download"]({
+      fileResponse = await CF.download({
         modId,
         fileId,
       });
     } catch (error) {
-      logWithPrefix(`Getting response error: ${String(error)}`);
-      return;
+      logWithPrefix(`Download response error: ${String(error)}`);
+    }
+
+    if (!fileResponse) {
+      try {
+        logWithPrefix(`Downloading via Cookie`);
+        fileResponse = await CF.downloadAlt({
+          modId,
+          fileId,
+        });
+      } catch (error) {
+        logWithPrefix(`Alt download response error: ${String(error)}`);
+        return;
+      }
     }
 
     const clonedFileResponse = fileResponse.clone();
@@ -100,8 +112,6 @@ const buildModpack = async ({ modpack, clear, log }) => {
     }/${overridesCount}`,
   );
 
-  let failedDownloads = [];
-
   for (const { projectID, fileID } of manifest.files) {
     const mod = await downloadMod({
       modId: projectID,
@@ -110,33 +120,12 @@ const buildModpack = async ({ modpack, clear, log }) => {
     });
 
     if (!mod) {
-      failedDownloads.push({ projectID, fileID });
-      continue;
+      log(`[Modpack] Stopped.`);
+      return;
     }
 
     const fileName = decodeURIComponent(mod.displayName);
     finalZip.file(`${mod.subfolder}/${fileName}`, mod.blob);
-  }
-
-  if (failedDownloads.length) {
-    log(`[Modpack] Retrying failed downloads (${failedDownloads.length})`);
-
-    for (const { projectID, fileID } of failedDownloads) {
-      const mod = await downloadMod({
-        modId: projectID,
-        fileId: fileID,
-        log,
-        alt: true,
-      });
-
-      if (!mod) {
-        log(`[Modpack] Stopped.`);
-        return;
-      }
-
-      const fileName = decodeURIComponent(mod.displayName);
-      finalZip.file(`${mod.subfolder}/${fileName}`, mod.blob);
-    }
   }
 
   log(`[Modpack] Done.`);
